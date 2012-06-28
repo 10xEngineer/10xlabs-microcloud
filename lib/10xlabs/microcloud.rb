@@ -14,6 +14,20 @@ module TenxLabs
       Microcloud.base_uri HTTParty.normalize_base_uri(@uri.to_s)
     end
 
+    def get(resource, resource_id)
+      # TODO error handling (404s, 401s)
+      response = perform_request(
+                    :get,
+                    resource_path(resource, resource_id),
+                    {})
+
+      unless Net::HTTPOK
+        raise response.parsed_response
+      end
+
+      response.parsed_response
+    end
+
     def notify(resource, resource_id, event, data)
       body = {
         :action => event,
@@ -33,7 +47,7 @@ module TenxLabs
 
     def resource_path(resource, resource_id, append = nil)
       path = "/#{resource.to_s.pluralize}/#{resource_id}"
-      path << "/#{append}"
+      path << "/#{append}" if append
 
       path
     end
