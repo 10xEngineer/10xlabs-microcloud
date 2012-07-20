@@ -39,14 +39,25 @@ module TenxLabs
                     :body => create_body(body))
     end
 
-  private
+  public
 
     def perform_request(method, path, options)
       self.class.send(method.to_s, path, options)
     end
 
-    def resource_path(resource, resource_id, append = nil)
-      path = "/#{resource.to_s.pluralize}/#{resource_id}"
+    def nested_resources_paths(resources)
+      output = ""
+
+      resources.each do |res|
+        output << self.resource_path(*res)
+      end
+
+      output
+    end
+
+    def resource_path(resource, resource_id = nil, append = nil)
+      path = "/#{resource.to_s.pluralize}"
+      path << "/#{resource_id}" if resource_id
       path << "/#{append}" if append
 
       path
