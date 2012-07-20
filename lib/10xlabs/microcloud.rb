@@ -15,19 +15,44 @@ module TenxLabs
     end
 
     def get(resource, resource_id)
+      get_ext resource_path(resource, resource_id)
+    end
+
+    def get_ext(path)
       # TODO error handling (404s, 401s)
       response = perform_request(
                     :get,
-                    resource_path(resource, resource_id),
+                    path,
                     {})
 
-      unless Net::HTTPOK
+      unless response.response.kind_of? Net::HTTPOK
         raise response.parsed_response
       end
 
       response.parsed_response
     end
 
+    def post(resource, resource_id, data, options = {})
+      post_ext resource_path(resource, resource_id), data, options
+    end
+
+    def post_ext(path, data, options = {})
+      # TODO error handling (404s, 401s)
+
+      options[:query] = data
+      response = perform_request(
+                    :post,
+                    path,
+                    options)
+
+      unless response.response.kind_of? Net::HTTPOK
+        raise response.parsed_response
+      end
+
+      response.parsed_response
+    end
+
+    # TODO decomission (replace with generic action/update API)
     def notify(resource, resource_id, event, data)
       body = {
         :action => event,

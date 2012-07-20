@@ -37,4 +37,31 @@ describe TenxLabs::Microcloud do
       @microcloud.nested_resources_paths([[:node, 1], [:vm, 2, "notify"]]).should == "/nodes/1/vms/2/notify"
     end
   end
+
+  context "requests" do
+    before do
+      @microcloud = TenxLabs::Microcloud.new("http://localhost:8080")
+    end
+
+    def canned_response
+      response = double("response")
+      response.stub(:response) {Net::HTTPOK.new('1.1', 200, 'OK')}
+      response.stub(:parsed_response) {{}}
+
+      response
+    end
+
+    it "performs GET request" do
+      TenxLabs::Microcloud.should_receive(:get).once.with(kind_of(String), kind_of(Hash)).and_return(canned_response)
+
+      @microcloud.get(:vms, 1)
+    end
+
+    it "performs POST request" do
+      TenxLabs::Microcloud.should_receive(:post).once.with(kind_of(String), kind_of(Hash)).and_return(canned_response)
+
+      @microcloud.post(:vms, 1, {})
+    end
+
+  end
 end
