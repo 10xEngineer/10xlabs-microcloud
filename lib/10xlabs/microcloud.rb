@@ -41,6 +41,8 @@ module TenxLabs
 
       # TODO explicitly convert data to JSON
       options[:body] = Yajl::Encoder.encode(data)
+      # TODO why doesn't options[:format] set correct content type?
+      options[:headers] = {'content-type' => 'application/json'}
       response = perform_request(
                     :post,
                     path,
