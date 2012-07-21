@@ -39,7 +39,8 @@ module TenxLabs
     def post_ext(path, data, options = {})
       # TODO error handling (404s, 401s)
 
-      options[:body] = data
+      # TODO explicitly convert data to JSON
+      options[:body] = Yajl::Encoder.encode(data)
       response = perform_request(
                     :post,
                     path,
