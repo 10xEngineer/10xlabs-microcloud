@@ -39,7 +39,7 @@ module TenxLabs
     def post_ext(path, data, options = {})
       # TODO error handling (404s, 401s)
 
-      options[:query] = data
+      options[:body] = data
       response = perform_request(
                     :post,
                     path,
