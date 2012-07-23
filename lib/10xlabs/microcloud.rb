@@ -25,7 +25,7 @@ module TenxLabs
                     path,
                     {})
 
-      unless response.response.kind_of? Net::HTTPOK
+      unless response.response.kind_of? Net::HTTPAccepted
         raise response.parsed_response
       end
 
