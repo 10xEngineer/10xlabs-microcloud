@@ -55,7 +55,7 @@ module TenxLabs
       response.parsed_response
     end
 
-    # TODO decomission (replace with generic action/update API)
+    # TODO decomission (replaced by submit_event)
     def notify(resource, resource_id, event, data)
       body = {
         :action => event,
@@ -65,6 +65,22 @@ module TenxLabs
                     :post, 
                     resource_path(resource, resource_id, "notify"), 
                     :body => create_body(body))
+    end
+
+    def submit_event(resource, resource_id, event, data)
+      body = {
+        :resource => resource,
+        :uuid => resource_id,
+        :event => event,
+        resource => data
+      }
+
+      response = perform_request(
+                    :post,
+                    "/events",
+                    create_body(body))
+
+      # TODO handle response
     end
 
   public
