@@ -78,7 +78,7 @@ module TenxLabs
       response = perform_request(
                     :post,
                     "/events",
-                    create_body(body))
+                    :body => create_body(body))
 
       # TODO handle response
     end
