@@ -50,7 +50,7 @@ module TenxLabs
 
       ok_codes = [200, 201, 202]
 
-      unless ok_codes.include? response.response.code
+      unless ok_codes.include? response.response.code.to_i
         raise response.parsed_response["reason"]
       end
 

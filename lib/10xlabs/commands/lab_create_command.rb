@@ -48,7 +48,7 @@ command :create do |c|
 			puts "Lab '#{res["name"]}' created."
 			puts res["repo"]
 		rescue => e
-			puts e
+			abort e.to_s
 		end
 	end
 end

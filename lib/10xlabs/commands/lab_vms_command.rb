@@ -5,16 +5,12 @@ log = Logger.new(STDOUT)
 log.level = Logger::WARN
 
 #
-# Release Lab Definition
+# Get Lab's VMs
 #
-command :release do |c|
-	c.description = "Release (deploy) lab definition"
-
+command :vms do |c|
 	c.action do |args, options|
 		# FIXME validate lab name
-		# FIXME validate lab definition
 		lab_name = args.shift
-		definition = args.shift
 
 		# FIXME hardcoded - re-use config values
 		options.default :endpoint => "http://localhost:8080" || ENV['MICROCLOUD']
@@ -23,12 +19,15 @@ command :release do |c|
 		microcloud = TenxLabs::Microcloud.new options.endpoint
 
 		begin
-			res = microcloud.post_ext "/labs/#{lab_name}/versions/#{definition}/release", {}
-			puts res.inspect
+			res = microcloud.get "/labs/#{lab_name}/vms", {}
 
 			puts res["message"]
 		rescue => e
 			abort e.to_s
 		end
+
+
+
+
 	end
 end
