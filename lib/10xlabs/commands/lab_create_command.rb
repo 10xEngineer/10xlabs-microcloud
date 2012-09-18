@@ -42,9 +42,13 @@ command :create do |c|
 			}
 		}
 
-		res = microcloud.post_ext "/labs", data
+		begin
+			res = microcloud.post_ext "/labs", data
 
-		puts "Lab '#{res["name"]}' created."
-		puts res["repo"]
+			puts "Lab '#{res["name"]}' created."
+			puts res["repo"]
+		rescue => e
+			puts e
+		end
 	end
 end

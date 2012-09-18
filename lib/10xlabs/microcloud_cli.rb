@@ -13,3 +13,4 @@ $terminal.wrap_at = HighLine::SystemExtensions.terminal_size.first - 5 rescue 80
 
 # commands
 require '10xlabs/commands/lab_create_command'
+require '10xlabs/commands/lab_release_command'

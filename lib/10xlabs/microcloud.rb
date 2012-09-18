@@ -48,8 +48,10 @@ module TenxLabs
                     path,
                     options)
 
-      unless response.response.kind_of? Net::HTTPCreated
-        raise response.parsed_response
+      ok_codes = [200, 201, 202]
+
+      unless ok_codes.include? response.response.code
+        raise response.parsed_response["reason"]
       end
 
       response.parsed_response
