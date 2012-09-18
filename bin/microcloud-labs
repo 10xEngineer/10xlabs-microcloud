@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby 
+
+begin
+	require '10xlabs/microcloud_cli'
+rescue LoadError
+	root_path = File.expand_path('../../lib', __FILE__)
+
+	$:.unshift(root_path)
+
+	require '10xlabs/microcloud_cli'
+end
+
+program :name, "microcloud-lab"
+program :version, TenxLabs::VERSION
+program :description, "10xLabs Microcloud command line interface"
+program :help_formatter, :compact
+
+global_option '-c', '--config FILE', String, 'Config file to use (~/.10xlabs is default)' do |file|
+	# TODO import config file
+end
+
+#TenxLabs::CLI.run do
+#end
+
+Commander::Runner.instance.run!
