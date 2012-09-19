@@ -24,7 +24,7 @@ module TenxLabs
 		def self.config
 			if @@config.empty?
 				unless File.exists? @@config_file
-					abort "No configuration available. Please run 'microcloud config' first."
+					abort "No configuration available. Please run 'microcloud setup' first."
 				end
 
 				config = YAML::load(File.open(@@config_file))
