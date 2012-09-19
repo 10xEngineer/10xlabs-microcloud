@@ -18,12 +18,8 @@ command :release do |c|
 		lab_name = args.shift
 		definition = args.shift
 
-
-		# TODO move to shared logic
-		microcloud = TenxLabs::Microcloud.new options.endpoint
-
 		begin
-			res = microcloud.post_ext "/labs/#{lab_name}/versions/#{definition}/release", {}
+			res = TenxLabs::CLI.microcloud.post_ext "/labs/#{lab_name}/versions/#{definition}/release", {}
 			puts res.inspect
 
 			puts res["message"]

@@ -15,6 +15,8 @@ module TenxLabs
 		@@microcloud_inst = nil
 
 		def self.run
+			TenxLabs::CLI.config
+
 			yield
 		end
 
@@ -24,7 +26,10 @@ module TenxLabs
 					abort "No configuration available. Please run 'microcloud config' first."
 				end
 
-				@@config = YAML::load(File.open(@@config_file))
+				config = YAML::load(File.open(@@config_file))
+
+				# convert keys to symbols
+				@@config = config.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
 			end
 
 			@@config
@@ -37,7 +42,11 @@ module TenxLabs
 		end
 
 		def self.microcloud
-			return @microcloud_inst if @@microcloud_inst
+			unless @@microcloud_inst
+				@@microcloud_inst = TenxLabs::Microcloud.new @@config[:endpoint]
+			end
+			
+			return @@microcloud_inst
 		end
 	end
 end

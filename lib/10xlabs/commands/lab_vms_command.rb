@@ -14,12 +14,11 @@ command :vms do |c|
 		# FIXME validate lab name
 		lab_name = args.shift
 
-
 		# TODO move to shared logic
 		microcloud = TenxLabs::Microcloud.new options.endpoint
 
 		begin
-			res = microcloud.get "/labs/#{lab_name}/vms", {}
+			res = TenxLabs::CLI.microcloud.get "/labs/#{lab_name}/vms", {}
 
 			puts res["message"]
 		rescue => e

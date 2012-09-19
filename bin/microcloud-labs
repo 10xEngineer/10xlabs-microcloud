@@ -20,6 +20,7 @@ global_option '-c', '--config FILE', String, 'Config file to use (~/.10xlabs is 
 end
 
 TenxLabs::CLI.run do
+	# custom hooks go there
 end
 
 Commander::Runner.instance.run!

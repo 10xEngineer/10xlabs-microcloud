@@ -26,14 +26,11 @@ command :create do |c|
 
 	c.action do |args, options|
 		TenxLabs::CLI.populate_defaults(options)
-		
+
 		# TODO verify lab_name
 		lab_name = args.shift
 
-
-		# TODO move to shared logic
-		microcloud = TenxLabs::Microcloud.new options.endpoint
-
+		# make request
 		data = {
 			:name => lab_name,
 			:pools => {
@@ -42,7 +39,7 @@ command :create do |c|
 		}
 
 		begin
-			res = microcloud.post_ext "/labs", data
+			res = TenxLabs::CLI.microcloud.post_ext "/labs", data
 
 			puts "Lab '#{res["name"]}' created."
 			puts res["repo"]
