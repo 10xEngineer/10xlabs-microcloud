@@ -26,7 +26,7 @@ module TenxLabs
                     {})
 
       unless response.response.kind_of? Net::HTTPOK
-        raise response.parsed_response
+        raise response.parsed_response["reason"]
       end
 
       response.parsed_response
@@ -55,6 +55,22 @@ module TenxLabs
       end
 
       response.parsed_response
+    end
+
+    def delete_ext(path)
+      # TODO error handling (404s, 401s)
+      response = perform_request(
+                    :delete,
+                    path,
+                    {})
+
+      ok_codes = [200, 202]
+
+      unless ok_codes.include? response.response.code.to_i
+        raise response.parsed_response["reason"]
+      end
+
+      response.parsed_response      
     end
 
     # TODO decomission (replaced by submit_event)
