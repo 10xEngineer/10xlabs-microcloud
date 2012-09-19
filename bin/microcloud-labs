@@ -15,6 +15,7 @@ require '10xlabs/commands/lab_create_command'
 require '10xlabs/commands/lab_release_command'
 require '10xlabs/commands/lab_vms_command'
 require '10xlabs/commands/lab_destroy_command'
+require '10xlabs/commands/lab_versions_command'
 
 program :name, "microcloud-labs"
 program :version, TenxLabs::VERSION
