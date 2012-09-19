@@ -9,11 +9,11 @@ log.level = Logger::WARN
 #
 command :vms do |c|
 	c.action do |args, options|
+		TenxLabs::CLI.populate_defaults(options)
+
 		# FIXME validate lab name
 		lab_name = args.shift
 
-		# FIXME hardcoded - re-use config values
-		options.default :endpoint => "http://localhost:8080" || ENV['MICROCLOUD']
 
 		# TODO move to shared logic
 		microcloud = TenxLabs::Microcloud.new options.endpoint

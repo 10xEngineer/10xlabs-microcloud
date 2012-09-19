@@ -16,10 +16,10 @@ program :description, "10xLabs Microcloud command line interface"
 program :help_formatter, :compact
 
 global_option '-c', '--config FILE', String, 'Config file to use (~/.10xlabs is default)' do |file|
-	# TODO import config file
+	TenxLabs::CLI.config_file = file
 end
 
-#TenxLabs::CLI.run do
-#end
+TenxLabs::CLI.run do
+end
 
 Commander::Runner.instance.run!

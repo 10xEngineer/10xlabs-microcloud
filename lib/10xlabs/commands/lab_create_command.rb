@@ -22,15 +22,14 @@ command :create do |c|
 
 	c.option '--source SOURCE', String, 'Lab source (lab URL/git repository/path)'
 	c.option '--compile_kit KIT', String, 'Specify compile kit to use'
-	c.option '--compute-pool POOL', String, 'Compute resource pool to use (overrides config default)'
+	c.option '--pool-compute POOL', String, 'Compute resource pool to use (overrides config default)'
 
 	c.action do |args, options|
+		TenxLabs::CLI.populate_defaults(options)
+		
 		# TODO verify lab_name
 		lab_name = args.shift
 
-		# FIXME hardcoded - re-use config values
-		options.default :compute_pool => "xxxtest"
-		options.default :endpoint => "http://localhost:8080" || ENV['MICROCLOUD']
 
 		# TODO move to shared logic
 		microcloud = TenxLabs::Microcloud.new options.endpoint
