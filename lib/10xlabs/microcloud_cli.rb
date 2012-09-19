@@ -15,8 +15,6 @@ module TenxLabs
 		@@microcloud_inst = nil
 
 		def self.run
-			TenxLabs::CLI.config
-
 			yield
 		end
 

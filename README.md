@@ -1,5 +1,11 @@
 # 10xLabs Microcloud
 
+To setup microcloud client use
+
+	microcloud setup
+
+And follow instructions. Enjoy!
+
 ## Lab Create
 
 ## Lab Destroy
