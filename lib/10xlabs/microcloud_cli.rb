@@ -7,6 +7,9 @@ module TenxLabs
 		@@config = {}
 		@@config_file = File.join(ENV["HOME"], ".microcloud")
 		@@config_defaults = [:endpoint, :compute_pool]
+		@@config_environment = {
+			'MICROCLOUD' => :endpoint
+		}
 
 		class << self
 			attr_accessor :config_file
@@ -29,6 +32,20 @@ module TenxLabs
 				# convert keys to symbols
 				@@config = config.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
 			end
+
+			# override environment variables 
+			env_modified = false
+
+			@@config_environment.keys.each do |key|
+				if ENV[key]
+					@@config[@@config_environment[key]] = ENV[key] 
+					puts "Using environment variable '#{key}'"
+
+					env_modified = true
+				end
+			end
+
+			puts if env_modified
 
 			@@config
 		end
