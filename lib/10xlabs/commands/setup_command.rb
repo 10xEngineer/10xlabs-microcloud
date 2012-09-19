@@ -17,8 +17,8 @@ command :setup do |c|
 			say "Running 'microcloud setup' for first time"
 		end
 
-		options.endpoint = ask("Your microcloud endpoint URL:")
-		options.compute_pool = ask("Defalt compute resource pool:")
+		options.endpoint = ask("Your microcloud endpoint URL: ")
+		options.compute_pool = ask("Defalt compute resource pool: ")
 
 		# verify endpoint
 		begin
