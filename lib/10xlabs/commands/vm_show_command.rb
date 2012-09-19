@@ -29,7 +29,11 @@ command :show do |c|
 				rows << ['lab', '--- n/a ---'] 
 			end
 
-			# FIXME missing descriptor details (ip_address)
+			ip_addr = res["descriptor"]["ip_addr"] ? res["descriptor"]["ip_addr"] : "-- n/a --"
+			mac_addr = res["descriptor"]["mac_addr"] ? res["descriptor"]["mac_addr"] : "-- n/a --"
+
+			rows << ['ip_addr', ip_addr]
+			rows << ['mac_addr', mac_addr]
 
 			table = Terminal::Table.new :headings => ['Key','Value'], :rows => rows
 			puts table
