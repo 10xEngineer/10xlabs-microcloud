@@ -20,8 +20,7 @@ command :release do |c|
 
 		begin
 			res = TenxLabs::CLI.microcloud.post_ext "/labs/#{lab_name}/versions/#{definition}/release", {}
-			puts res.inspect
-
+			
 			puts res["message"]
 		rescue => e
 			abort e.to_s

@@ -1,4 +1,5 @@
 require 'logger'
+require 'terminal-table'
 require '10xlabs/microcloud'
 
 log = Logger.new(STDOUT)
@@ -8,19 +9,25 @@ log.level = Logger::WARN
 # Get Lab's VMs
 #
 command :vms do |c|
+	c.description = "List VMs allocated to the specified lab"
 	c.action do |args, options|
 		TenxLabs::CLI.populate_defaults(options)
 
 		# FIXME validate lab name
 		lab_name = args.shift
 
-		# TODO move to shared logic
-		microcloud = TenxLabs::Microcloud.new options.endpoint
-
 		begin
-			res = TenxLabs::CLI.microcloud.get "/labs/#{lab_name}/vms", {}
+			res = TenxLabs::CLI.microcloud.get_ext "/labs/#{lab_name}/vms"
 
-			puts res["message"]
+			vms = []
+			res.each do |vm|
+				meta_vm = [vm["uuid"], vm["vm_name"], vm["state"]]
+
+				vms << meta_vm
+			end
+			
+			table = Terminal::Table.new :headings => ['UUD','name', 'state'], :rows => vms
+			puts table
 		rescue => e
 			abort e.to_s
 		end

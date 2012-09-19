@@ -10,10 +10,17 @@ rescue LoadError
 	require '10xlabs/microcloud_cli'
 end
 
-program :name, "microcloud-lab"
+# load commands
+require '10xlabs/commands/lab_create_command'
+require '10xlabs/commands/lab_release_command'
+require '10xlabs/commands/lab_vms_command'
+
+program :name, "microcloud-labs"
 program :version, TenxLabs::VERSION
 program :description, "10xLabs Microcloud command line interface"
 program :help_formatter, :compact
+
+default_command :help
 
 global_option '-c', '--config FILE', String, 'Config file to use (~/.10xlabs is default)' do |file|
 	TenxLabs::CLI.config_file = file
