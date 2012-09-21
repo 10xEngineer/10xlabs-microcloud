@@ -1,17 +1,15 @@
-require 'definition/mixins/transform'
 require 'facets'
 
-#
 # TODO VM should be based on common AbstractComponent class which provides
 #      shared logic (like depends_on)
-#
 
 class Vm
   include TenxLabs::Mixin::ObjectTransform
+  include TenxLabs::Mixin::FromFile
 
   attr_accessor :name
 
-  def initialize(name, &block)
+  def initialize(name)
     @name = name
     @file = nil
 
@@ -20,12 +18,6 @@ class Vm
     @run_list = []
 
     @dependencies = []
-
-    instance_eval &block
-  end
-
-  def self.vm(name, &block)
-    Vm.new(name, &block)
   end
 
   def base_image(image)
