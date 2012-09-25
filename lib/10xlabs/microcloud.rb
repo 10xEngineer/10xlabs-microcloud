@@ -6,8 +6,7 @@ require 'uri'
 module TenxLabs
   class Microcloud
     include HTTParty
-    format :json
-
+    
     def initialize(endpoint)
       @uri = URI.parse(endpoint)
 
