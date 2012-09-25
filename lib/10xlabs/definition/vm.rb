@@ -11,7 +11,7 @@ module TenxLabs
 
       attr_reader :name, :run_list, :hostname, :base_image
 
-      def initialize(name)
+      def initialize(name = nil)
         @name = name
         @file = nil
 
