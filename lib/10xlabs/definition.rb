@@ -18,18 +18,13 @@ module TenxLabs
 				metadata = TenxLabs::Definition::Metadata.new
 				metadata.from_file(metadata_rb)
 
-				build_vms(metadata)
+				build_vms(definition_root, metadata)
 
 				metadata
 			end
 
-			def self.build_vms(metadata)
-				vms_path = nil
-				if metadata.vms_path.match /^\//
-				  vms_path = File.join(metadata.vms_path, "*.rb")
-				else
-				  vms_path = File.join(base_dir, metadata.vms_path, "*.rb")
-				end
+			def self.build_vms(definition_root, metadata)
+				vms_path = File.join(definition_root, metadata.vms_path, "*.rb")
 
 				Dir.glob(vms_path).each do |file|
 					vm = TenxLabs::Definition::Vm.new
