@@ -36,6 +36,8 @@ module TenxLabs
       end
 
       def use(handler_name)
+        return unless handler_name
+        
         @handler_name = handler_name
         @handler = (eval handler_name).new
       rescue NameError => e
