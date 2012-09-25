@@ -6,8 +6,9 @@ module TenxLabs
     class Metadata < Base
       RESOURCE_TYPES = [:compute, :storage, :network]
 
-      attr_reader  :maintainer, :maintainer_email, :handler, :version, :description, :revision, :resources
-      attr_reader  :vms_path, :cookbooks_path, :roles_path, :data_bags_path
+      attr_reader :maintainer, :maintainer_email, :handler, :version, :description, :revision, :resources
+      attr_reader :vms
+      attr_reader :vms_path, :cookbooks_path, :roles_path, :data_bags_path
 
       # FIXME provide chef style set_or_return with validations (chef/mixin/params_validate.rb)
       # FIXME DRY way how to define attributes/assign/evaluate
