@@ -41,6 +41,10 @@ module TenxLabs
         }
       end
 
+      def process(&block)
+        instance_eval &block
+      end
+
       def to_obj
         {
           :__type__ => self.class.to_s.underscore,

@@ -27,10 +27,7 @@ module TenxLabs
 				vms_path = File.join(definition_root, metadata.vms_path, "*.rb")
 
 				Dir.glob(vms_path).each do |file|
-					vm = TenxLabs::Definition::Vm.new
-					vm.from_file(file)
-
-					metadata.add_vm(vm)
+					metadata.from_file(file)
 				end	
 			end
 		end

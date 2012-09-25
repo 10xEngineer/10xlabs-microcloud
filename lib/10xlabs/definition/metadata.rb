@@ -34,10 +34,6 @@ module TenxLabs
         @data_bags_path = "data_bag"
       end
 
-      def add_vm(vm)
-        @vms << vm
-      end
-
       def use(handler_name)
         @handler_name = handler_name
         @handler = (eval handler_name).new
@@ -70,6 +66,13 @@ module TenxLabs
         }
       end
 
+      def vm(name, &block)
+        a_vm = Vm.new(name)
+        a_vm.process &block
+
+        @vms << a_vm
+      end
+
       def to_obj
         {
           :__type__ => self.class.to_s.underscore,
@@ -80,6 +83,7 @@ module TenxLabs
           :handler => @handler,
           :resources => @resources,
           :description => @description,
+          :vms => @vms.collect { |vm| vm.to_obj }
         }
       end
     end
