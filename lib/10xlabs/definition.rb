@@ -11,11 +11,11 @@ require '10xlabs/definition/errors'
 module TenxLabs
 	module Definition
 		class Builder
-			def self.construct(definition_root)
+			def self.construct(definition_root, revision)
 				metadata_rb = File.join(definition_root, 'metadata.rb')
 				raise TenxLabs::Errors::InvalidDefinition "Missing metadata descriptor!" unless File.exists?(metadata_rb)
 
-				metadata = TenxLabs::Definition::Metadata.new
+				metadata = TenxLabs::Definition::Metadata.new(nil, revision)
 				metadata.from_file(metadata_rb)
 
 				build_vms(definition_root, metadata)
