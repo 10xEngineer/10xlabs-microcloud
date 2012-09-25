@@ -9,7 +9,7 @@ module TenxLabs
       include TenxLabs::Mixin::ObjectTransform
       include TenxLabs::Mixin::FromFile
 
-      attr_accessor :name
+      attr_reader :name, :run_list, :hostname, :base_image
 
       def initialize(name)
         @name = name
