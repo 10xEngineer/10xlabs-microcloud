@@ -47,6 +47,10 @@ module TenxLabs
         @data_bags_path = "data_bag"
       end
 
+      def add_vm(vm)
+        @vms << vm
+      end
+
       def use(handler_name)
         @handler_name = handler_name
         @handler = (eval handler_name).new
